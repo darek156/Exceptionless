@@ -243,6 +243,9 @@
     <Compile Include="Pipeline\005_ThrottleBotsAction.cs" />
     <Compile Include="Pipeline\080_NotifySignalRAction.cs" />
     <Compile Include="Pipeline\090_IncrementCountersAction.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="Plugins\PluginContext.cs" />
+    <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Queues\ProjectHookNotification.cs" />
     <Compile Include="Queues\SummaryNotification.cs" />
     <Compile Include="Repositories\Interfaces\IProjectHookRepository.cs" />
