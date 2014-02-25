@@ -178,7 +178,7 @@ namespace Exceptionless.Extensions {
         ///      <c>true</c> if is null or empty; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsNullOrWhiteSpace(this string item) {
-            return String.IsNullOrEmpty(item) || item.All(Char.IsWhiteSpace);
+            return String.IsNullOrWhiteSpace(item);
         }
 
         public static string AsNullIfEmpty(this string items)
