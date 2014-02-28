@@ -86,7 +86,7 @@ namespace SampleConsole {
             Console.WriteLine("Enabled: \t\t" + ExceptionlessClient.Current.Configuration.Enabled);
             Console.WriteLine("Logging enabled: \t" + ExceptionlessClient.Current.Configuration.EnableLogging);
             if (ExceptionlessClient.Current.Configuration.EnableLogging)
-                Console.Write(" (Path: " + ExceptionlessClient.Current.Configuration.LogPath +")");
+                Console.WriteLine("Log Path: \t\t" + ExceptionlessClient.Current.Configuration.LogPath);
             Console.WriteLine("SSL enabled: \t\t" + ExceptionlessClient.Current.Configuration.EnableSSL);
             Console.WriteLine("Include private info: \t" + ExceptionlessClient.Current.Configuration.IncludePrivateInformation);
             Console.WriteLine("Log limit: \t\t" + ExceptionlessClient.Current.Configuration.TraceLogLimit);
