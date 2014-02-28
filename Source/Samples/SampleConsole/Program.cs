@@ -36,7 +36,9 @@ namespace SampleConsole {
             while (true) {
                 if (!_sendingContinuous) {
                     Console.Clear();
-                    Console.WriteLine("1: Send 1\r\n2: Send 100\r\n3: Send 1 per second\r\n4: Send 10 per second\r\n5: Send 1,000\r\n6: Process queue\r\n7: Process directory\r\n\r\nQ: Quit");
+                    PrintConfiguration();
+                    Console.WriteLine();
+                    PrintUsage();
                 }
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
@@ -58,7 +60,8 @@ namespace SampleConsole {
                     SendAllCapturedErrorsFromDisk();
                 else if (keyInfo.Key == ConsoleKey.Q)
                     break;
-                else if (keyInfo.Key == ConsoleKey.S) {
+                else if (keyInfo.Key == ConsoleKey.S)
+                {
                     tokenSource.Cancel();
                     tokenSource = new CancellationTokenSource();
                     token = tokenSource.Token;
@@ -66,6 +69,28 @@ namespace SampleConsole {
 
                 Thread.Sleep(TimeSpan.FromSeconds(1));
             }
+        }
+
+        private static void PrintUsage()
+        {
+            Console.WriteLine("USAGE:");
+            Console.WriteLine();
+            Console.WriteLine("1: Send 1\r\n2: Send 100\r\n3: Send 1 per second\r\n4: Send 10 per second\r\n5: Send 1,000\r\n6: Process queue\r\n7: Process directory\r\n\r\nQ: Quit");
+        }
+
+        private static void PrintConfiguration()
+        {
+            Console.WriteLine("+------------------------------------------------------+");
+            Console.WriteLine("ServiceUrl: \t\t" + ExceptionlessClient.Current.Configuration.ServerUrl);
+            Console.WriteLine("API Key: \t\t" + ExceptionlessClient.Current.Configuration.ApiKey);
+            Console.WriteLine("Enabled: \t\t" + ExceptionlessClient.Current.Configuration.Enabled);
+            Console.WriteLine("Logging enabled: \t" + ExceptionlessClient.Current.Configuration.EnableLogging);
+            if (ExceptionlessClient.Current.Configuration.EnableLogging)
+                Console.Write(" (Path: " + ExceptionlessClient.Current.Configuration.LogPath +")");
+            Console.WriteLine("SSL enabled: \t\t" + ExceptionlessClient.Current.Configuration.EnableSSL);
+            Console.WriteLine("Include private info: \t" + ExceptionlessClient.Current.Configuration.IncludePrivateInformation);
+            Console.WriteLine("Log limit: \t\t" + ExceptionlessClient.Current.Configuration.TraceLogLimit);
+            Console.WriteLine("+------------------------------------------------------+");
         }
 
         private static void SendContinuousErrors(int delay, CancellationToken token, bool randomizeDates = false, int maxErrors = Int32.MaxValue, int uniqueCount = 1, bool randomizeCritical = true) {
@@ -90,7 +115,7 @@ namespace SampleConsole {
                     SendError(randomizeDates, errorCodeList.Random(), randomizeCritical ? RandomHelper.GetBool() : false, writeToConsole: false);
                     errorCount++;
 
-                    Console.SetCursorPosition(0, 13);
+                    Console.SetCursorPosition(0, 23);
                     Console.WriteLine("Sent {0} errors.", errorCount);
                     Trace.WriteLine(String.Format("Sent {0} errors.", errorCount));
 
@@ -123,7 +148,7 @@ namespace SampleConsole {
             }
 
             if (writeToConsole) {
-                Console.SetCursorPosition(0, 11);
+                Console.SetCursorPosition(0, 22);
                 Console.WriteLine("Sent 1 error.");
                 Trace.WriteLine("Sent 1 error.");
             }
